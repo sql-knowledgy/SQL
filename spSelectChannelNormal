@@ -1,0 +1,50 @@
+USE [SolidPowerDev]
+GO
+
+/****** Object:  StoredProcedure [dbo].[spSelectChannelNormal]    Script Date: 9/2/2019 14:31:29 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE PROCEDURE [dbo].[spSelectChannelNormal]
+	@cellname varchar(500) = 'ALL',
+	@random varchar(3) = 'No'
+AS
+BEGIN
+	
+	/*
+	GET CELL DATA FOR ALL DATA POINTS FROM CHANNEL NORMAL TABLE
+	GETS ALL DATA POINTS FOR A PARTICULAR CELL
+	exec spGetCellFromChannelNormal 'HASP_CP_190820_a'
+	GETS ALL FOR ALL CELLS - DO NOT EXECUTE THIS UNLESS YOU DON'T MIND WAITING 30 SECONDS BECAUSE THE TABLE IS 150 MILLION ROWS LONG
+	exec spGetCellFromChannelNormal 
+	GETS ALL DATA FOR A RANDOM CELL
+	exec spGetCellFromChannelNormal '', 'Y'
+[CNTID], [Test_Time], [Step_Time], [Date_Time], [Step_Index], [Cycle_Index], [Is_FC_Data], [Current], [Voltage], [Charge_Capacity], [Discharge_Capacity], [Charge_Energy], [Discharge_Energy], [dVdT], [Internal_Resistance], [AC_Impedance], [ACI_Phase_Angle], [EntryDate]
+
+	*/
+
+	SET NOCOUNT ON;
+
+	if @Random like 'Y%'
+		select top 1 @cellname = cellname from Cell order by newid()
+		
+	-- print @cellname
+
+	if @CellName != ''
+		select 
+			[CNTID], [CellName], [Test_ID], [Data_Point], [Test_Time], [Step_Time], [Date_Time], [Step_Index], [Cycle_Index], 
+			[Is_FC_Data], [Current], [Voltage], [Charge_Capacity], [Discharge_Capacity], [Charge_Energy], [Discharge_Energy], 
+			[dVdT], [Internal_Resistance], [AC_Impedance], [ACI_Phase_Angle], [EntryDate], [Cell_ID], [ArbinDate], [ArbinTime], [CTD_ID]
+			from ChannelNormal
+			where CellName = @cellname
+	else
+		print ('Enter a Cell Name Number')
+END
+GO
+
+
