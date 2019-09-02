@@ -1,0 +1,35 @@
+USE [SolidPowerDev]
+GO
+
+/****** Object:  View [dbo].[vuDqDvColumnStore]    Script Date: 9/2/2019 14:26:37 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE view [dbo].[vuDqDvColumnStore]
+as
+-- select * from vuDqDvColumnStore where cellname IN ('2019_0016c_PC_H') 
+select CellName, Test_ID, Cycle_Index, Data_Point, 'Data_Point' as Measurement, Data_Point as Value
+from vuDqDv
+union all
+select CellName, Test_ID, Cycle_Index, Data_Point, 'dqdvCharge' as Measurement, dqdvCharge as Value
+from vuDqDv
+union all
+select CellName, Test_ID, Cycle_Index, Data_Point, 'dqdvDischarge' as Measurement, dqdvDischarge as Value
+from vuDqDv
+union all
+select CellName, Test_ID, Cycle_Index, Data_Point, 'DeltaChargeCapacity' as Measurement, DeltaChargeCapacity as Value
+from vuDqDv
+union all
+select CellName, Test_ID, Cycle_Index, Data_Point, 'DeltaDischargeCapacity' as Measurement, DeltaDischargeCapacity as Value
+from vuDqDv
+union all
+select CellName, Test_ID, Cycle_Index, Data_Point, 'DeltaVoltage' as Measurement, DeltaVoltage as Value
+from vuDqDv
+
+GO
+
+
