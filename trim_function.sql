@@ -1,6 +1,3 @@
-USE [datasets]
-GO
-
 /****** Object:  UserDefinedFunction [dbo].[trim_white_space]    Script Date: 5/19/2019 17:24:33 ******/
 SET ANSI_NULLS ON
 GO
